@@ -5,6 +5,7 @@ import { axios } from "axios";
 import React from "react";
 
 export default function RegisterPage() {
+  const router = useRouter();
   const [user, setUser] = React.useState({
     email: "",
     username: "",
