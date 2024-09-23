@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import React, { useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -13,14 +14,19 @@ export default function LoginPage() {
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
+  const toastSuccessHandler = () => toast.success("Login success");
+  const toastFailHandler = () => toast.error("Login failed");
+
   const handleLogin = async () => {
     try {
       setLoading(true);
       const response = await axios.post("/api/users/login", user);
       console.log("Login success", response.data);
+      toastSuccessHandler();
       router.push("/profile");
     } catch (error) {
       console.log("Login failed", error);
+      toastFailHandler();
     } finally {
       setLoading(false);
     }
@@ -65,6 +71,7 @@ export default function LoginPage() {
         <Link href="/register" className="mt-5">
           Are you a new user?
         </Link>
+        <Toaster />
       </form>
     </div>
   );
