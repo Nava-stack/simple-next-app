@@ -13,6 +13,7 @@ export async function POST(request: NextRequest) {
 
     // Check if the user exists
     const user = await User.findOne({ email });
+
     if (!user) {
       return NextResponse.json(
         {
@@ -41,7 +42,7 @@ export async function POST(request: NextRequest) {
     };
 
     // Create token
-    const token = await jwt.sign(tokenData, process.env.JWT_SECRET!, {
+    const token = jwt.sign(tokenData, process.env.JWT_SECRET!, {
       expiresIn: "1d",
     });
 
@@ -53,8 +54,10 @@ export async function POST(request: NextRequest) {
 
     response.cookies.set("token", token, {
       httpOnly: true,
+      path: "/", // Ensure the cookie is accessible throughout the site
     });
 
+    console.log("Login successful, token set in cookies");
     return response;
   } catch (error) {
     console.log(error);
