@@ -58,6 +58,7 @@ export async function POST(request: NextRequest) {
     });
 
     console.log("Login successful, token set in cookies");
+    console.log(response);
     return response;
   } catch (error) {
     console.log(error);
