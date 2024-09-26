@@ -21,22 +21,31 @@ export default function ProfilePage() {
 
   const getUserDetails = async () => {
     const res = await axios.get("/api/users/person");
-    setData(res.data);
+    setData(res.data.data._id);
     console.log(data);
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
-      <h1>Profile Page</h1>
-      <p className="text-4xl">Profile Page</p>
-      <h2>{data === "" ? "Nothing" : `${data}`}</h2>
+      <h1 className="text-4xl mb-3">Profile Page</h1>
+      <h2 className="my-5">
+        {data === "" ? (
+          "Nothing"
+        ) : (
+          <Link
+            className="bg-pink-500 text-white  text-2xl px-4 py-2 rounded-md my-3 hover:bg-pink-400 hover:font-semibold"
+            href={`/profile/${data}`}
+          >
+            {data}
+          </Link>
+        )}
+      </h2>
       <button
         onClick={getUserDetails}
-        className="bg-purple-800 text-white font-semibold text-2xl px-4 py-2 rounded-md"
+        className="bg-green-600 text-white text-2xl px-4 py-2 rounded-md my-4"
       >
         Get User
       </button>
-      <hr />
       <button
         onClick={handleLogout}
         className="bg-white text-black text-2xl px-4 py-2 rounded-md"
