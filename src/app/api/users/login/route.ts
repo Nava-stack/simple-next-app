@@ -53,8 +53,10 @@ export async function POST(request: NextRequest) {
     });
 
     response.cookies.set("token", token, {
-      httpOnly: true,
-      path: "/", // Ensure the cookie is accessible throughout the site
+      httpOnly: true, // Ensures token cannot be accessed via client-side JavaScript
+      secure: process.env.NODE_ENV === "production", // Use secure flag in production
+      path: "/",
+      maxAge: 24 * 60 * 60, // 1 day
     });
 
     console.log("Login successful, token set in cookies");

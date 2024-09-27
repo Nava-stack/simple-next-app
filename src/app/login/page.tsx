@@ -17,14 +17,19 @@ export default function LoginPage() {
   const toastSuccessHandler = () => toast.success("Login success");
   const toastFailHandler = () => toast.error("Login failed");
 
-  const handleLogin = async () => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // Prevent default form submission behavior
     try {
       setLoading(true);
       const response = await axios.post("/api/users/login", user);
-      console.log("Login success", response.data);
-      toastSuccessHandler();
-      console.log("Redirecting to profile page...");
-      router.push("/profile");
+
+      if (response.data.success) {
+        toastSuccessHandler();
+        console.log("Redirecting to profile page...");
+        router.push("/profile"); // Navigate to profile after login
+      } else {
+        toastFailHandler();
+      }
     } catch (error) {
       console.log("Login failed", error);
       toastFailHandler();
@@ -44,9 +49,12 @@ export default function LoginPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <h1 className="mb-6 text-2xl font-bold">
-        {loading ? "processing" : "Login"}
+        {loading ? "Processing..." : "Login"}
       </h1>
-      <form className="flex flex-col w-80 p-6 border rounded-md shadow-md text-center">
+      <form
+        onSubmit={handleLogin} // Corrected to handle onSubmit
+        className="flex flex-col w-80 p-6 border rounded-md shadow-md text-center"
+      >
         <input
           id="email"
           type="email"
@@ -64,10 +72,11 @@ export default function LoginPage() {
           onChange={(e) => setUser({ ...user, password: e.target.value })}
         />
         <button
+          type="submit"
           className="p-2 bg-white text-black font-semibold rounded hover:bg-gray-600 hover:text-white"
-          onClick={handleLogin}
+          disabled={buttonDisabled} // Corrected to disable when necessary
         >
-          {buttonDisabled ? "Not logged" : "Login"}
+          {buttonDisabled ? "Not Ready" : "Login"}
         </button>
         <Link href="/register" className="mt-5">
           Are you a new user?
