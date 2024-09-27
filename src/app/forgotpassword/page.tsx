@@ -7,8 +7,11 @@ import toast, { Toaster } from "react-hot-toast";
 
 export default function ForgotPasswordPage() {
   const router = useRouter();
+  const [token, setToken] = useState("");
+  const [verified, setVerified] = React.useState(false);
   const [user, setUser] = React.useState({
     email: "",
+    password: "",
   });
 
   const [buttonDisabled] = React.useState(false);
@@ -26,7 +29,7 @@ export default function ForgotPasswordPage() {
 
       if (response.data.success) {
         toastSuccessHandler();
-        router.push("/login"); // Navigate to profile after login
+        setVerified(true);
       } else {
         toastFailHandler();
       }
@@ -38,33 +41,73 @@ export default function ForgotPasswordPage() {
     }
   };
 
+  const handleResetPassword = async () => {
+    try {
+      const response = await axios.post("/api/users/resetpassword", {
+        token: token,
+        password: user.password,
+      });
+      if (response.data.success) {
+        toast.success("Password reset successfully");
+        router.push("/login");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <h1 className="mb-6 text-2xl font-bold">
-        {loading ? "Processing..." : "Forgot Password"}
+        {loading ? "Processing..." : "Reset Password"}
       </h1>
-      <form
-        onSubmit={handleForgotPassword} // Corrected to handle onSubmit
-        className="flex flex-col w-80 p-6 border rounded-md shadow-md text-center"
-      >
-        <input
-          id="email"
-          type="email"
-          placeholder="Email"
-          className="mb-4 p-2 border text-black border-gray-300 rounded"
-          value={user.email}
-          onChange={(e) => setUser({ ...user, email: e.target.value })}
-        />
-
-        <button
-          type="submit"
-          className="p-2 bg-white text-black font-semibold rounded hover:bg-gray-600 hover:text-white"
-          disabled={buttonDisabled} // Corrected to disable when necessary
+      {verified ? (
+        <form
+          onSubmit={handleResetPassword} // Corrected to handle onSubmit
+          className="flex flex-col w-80 p-6 border rounded-md shadow-md text-center"
         >
-          {buttonDisabled ? "Not Ready" : "Send Mail"}
-        </button>
-        <Toaster />
-      </form>
+          <input
+            id="password"
+            type="password"
+            placeholder="Email"
+            className="mb-4 p-2 border text-black border-gray-300 rounded"
+            value={user.password}
+            onChange={(e) => setUser({ ...user, password: e.target.value })}
+          />
+
+          <button
+            type="submit"
+            className="p-2 bg-white text-black font-semibold rounded hover:bg-gray-600 hover:text-white"
+            disabled={buttonDisabled} // Corrected to disable when necessary
+          >
+            {buttonDisabled ? "Not Ready" : "Confirm reset"}
+          </button>
+          <Toaster />
+        </form>
+      ) : (
+        <form
+          onSubmit={handleForgotPassword} // Corrected to handle onSubmit
+          className="flex flex-col w-80 p-6 border rounded-md shadow-md text-center"
+        >
+          <input
+            id="email"
+            type="email"
+            placeholder="Enter your email"
+            className="mb-4 p-2 border text-black border-gray-300 rounded"
+            value={user.email}
+            onChange={(e) => setUser({ ...user, email: e.target.value })}
+          />
+
+          <button
+            type="submit"
+            className="p-2 bg-white text-black font-semibold rounded hover:bg-gray-600 hover:text-white"
+            disabled={buttonDisabled} // Corrected to disable when necessary
+          >
+            {buttonDisabled ? "Not Ready" : "Send Mail"}
+          </button>
+          <Toaster />
+        </form>
+      )}
     </div>
   );
 }
