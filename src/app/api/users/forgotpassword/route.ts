@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import connect from "@/dbConfig/dbConfig";
 import { sendEmail } from "@/helpers/mailer";
 import User from "@/models/userModel";

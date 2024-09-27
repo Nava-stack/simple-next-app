@@ -41,34 +41,34 @@ This repository contains a practice project for implementing authentication in a
 2. Install dependencies:
    npm install
 
-# or
+### or using Yarn
 
 yarn install
 
-# or
+### or using PNPM
 
 pnpm install
 
-3. Create a .env.local file in the root directory and add your environment variables:
+1. Create a .env.local file in the root directory and add your environment variables:
    MONGODB_URI=your_mongodb_connection_string
    JWT_SECRET=your_jwt_secret
 
 Running the Development Server
 npm run dev
 
-# or
+### or
 
 yarn dev
 
-# or
+### or pnpm dev
 
 pnpm dev
 
-# or
+### or bun dev
 
 bun dev
 
-Open http://localhost:3000 with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 .
 ├── components
 │ ├── AuthForm.tsx
