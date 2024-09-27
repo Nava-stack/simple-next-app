@@ -1,8 +1,8 @@
 "use client";
 
 import axios from "axios";
-import { useRouter } from "next/router";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function ForgotPasswordPage() {
@@ -55,6 +55,20 @@ export default function ForgotPasswordPage() {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const token = searchParams.get("token");
+    if (token) {
+      setToken(token || "");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (token.length > 0) {
+      handleResetPassword();
+    }
+  }, [token]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
