@@ -81,6 +81,9 @@ export default function LoginPage() {
         <Link href="/register" className="mt-5">
           Are you a new user?
         </Link>
+        <Link href="/forgotpassword" className="mt-5">
+          Forgot password?
+        </Link>
         <Toaster />
       </form>
     </div>

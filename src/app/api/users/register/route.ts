@@ -22,18 +22,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Hash the password
+    //* Hash the password
     const salt = await bcryptjs.genSalt(10);
     const hashedPassword = await bcryptjs.hash(password, salt);
 
-    // Create a new user
+    // * Create a new user
     const newUser = new User({
       email,
       username,
       password: hashedPassword,
     });
 
-    // Save the user
+    // *  Save the user to the database
     const savedUser = await newUser.save();
     console.log(savedUser);
 
