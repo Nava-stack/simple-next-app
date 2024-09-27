@@ -2,10 +2,10 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-gradient-to-br from-gray-800 to-gray-900 text-white">
+    <div className="flex flex-col justify-center items-center min-h-screen bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-[length:100px_100px] bg-black bg-center bg-repeat text-white">
       <main className="flex flex-col gap-8 text-center items-center">
         {/* Hero Section */}
-        <h1 className="text-6xl font-extrabold tracking-tight text-center mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-500">
+        <h1 className="text-6xl font-extrabold tracking-tight text-center mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-yellow-300">
           Welcome to Next.js! Authentication App
         </h1>
 
@@ -27,8 +27,8 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="flex gap-6 flex-wrap items-center justify-center mt-10 text-gray-400">
-        <p className="text-lg">Developed by Navarasan</p>
+      <footer className="flex gap-2 flex-wrap items-center justify-center mt-4 text-gray-400">
+        <p className="text-sm">Developed by Navarasan</p>
       </footer>
     </div>
   );

@@ -34,7 +34,7 @@ export default function VerifyEmailPage() {
   }, [token]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen ">
+    <div className="flex flex-col justify-center items-center min-h-screen bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-[length:100px_100px] bg-black bg-center bg-repeat text-white">
       {verified ? (
         <div className="flex flex-col items-center justify-center bg-gray-200  p-8 rounded-lg shadow-md">
           <h1 className="text-4xl font-bold mb-4 text-green-600">

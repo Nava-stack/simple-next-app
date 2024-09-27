@@ -47,9 +47,9 @@ export default function RegisterPage() {
   }, [user]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white px-4">
+    <div className="flex flex-col justify-center items-center min-h-screen bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-[length:100px_100px] bg-black bg-center bg-repeat text-white">
       {/* Form Container */}
-      <form className="flex flex-col w-full max-w-md p-8 bg-gray-900 border border-gray-700 rounded-lg shadow-lg">
+      <form className="flex flex-col w-full max-w-md p-8 bg-black border border-gray-700 rounded-lg shadow-lg">
         <h1 className="mb-6 text-3xl text-center font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-500">
           {loading ? "Processing..." : "Register"}
         </h1>
