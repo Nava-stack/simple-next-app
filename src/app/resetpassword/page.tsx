@@ -40,28 +40,36 @@ export default function ResetPasswordPage() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="mb-6 text-2xl font-bold">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white px-4">
+      {/* Title */}
+      <h1 className="mb-6 text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-500">
         {loading ? "Processing..." : "Reset Password"}
       </h1>
+
+      {/* Form */}
       <form
         onSubmit={handleResetPassword}
-        className="flex flex-col w-80 p-6 border rounded-md shadow-md text-center"
+        className="flex flex-col w-full max-w-md p-8 bg-gray-900 border border-gray-700 rounded-lg shadow-lg"
       >
+        {/* Password Input */}
         <input
           id="password"
           type="password"
           placeholder="Enter your new password"
-          className="mb-4 p-2 border text-black border-gray-300 rounded"
+          className="mb-4 p-4 text-lg border border-gray-600 rounded-lg bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+
+        {/* Reset Button */}
         <button
           type="submit"
-          className="p-2 bg-white text-black font-semibold rounded hover:bg-gray-600 hover:text-white"
+          className={`p-4 text-lg font-semibold rounded-lg bg-pink-500 text-white transition duration-300 ease-in-out transform hover:scale-105 hover:bg-pink-600 ${
+            loading && "opacity-50 cursor-not-allowed"
+          }`}
           disabled={loading}
         >
-          {loading ? "Processing..." : "Confirm reset"}
+          {loading ? "Processing..." : "Confirm Reset"}
         </button>
         <Toaster />
       </form>

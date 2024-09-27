@@ -14,8 +14,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Simpe Next App",
-  description: "Created for practice",
+  title: "Next Auth App",
+  description: "Created by Navarasan",
 };
 
 export default function RootLayout({

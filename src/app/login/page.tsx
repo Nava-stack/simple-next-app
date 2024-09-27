@@ -14,7 +14,7 @@ export default function LoginPage() {
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
-  const toastSuccessHandler = () => toast.success("Login success");
+  const toastSuccessHandler = () => toast.success("Login successful");
   const toastFailHandler = () => toast.error("Login failed");
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -47,43 +47,63 @@ export default function LoginPage() {
   }, [user]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="mb-6 text-2xl font-bold">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white px-4">
+      {/* Title */}
+      <h1 className="mb-6 text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-500">
         {loading ? "Processing..." : "Login"}
       </h1>
+
+      {/* Form */}
       <form
-        onSubmit={handleLogin} // Corrected to handle onSubmit
-        className="flex flex-col w-80 p-6 border rounded-md shadow-md text-center"
+        onSubmit={handleLogin}
+        className="flex flex-col w-full max-w-md p-8 border border-gray-700 bg-gray-900 rounded-lg shadow-lg "
       >
+        {/* Email Input */}
         <input
           id="email"
           type="email"
           placeholder="Email"
-          className="mb-4 p-2 border text-black border-gray-300 rounded"
+          className="mb-4 p-4 text-lg border border-gray-600 rounded-lg bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500"
           value={user.email}
           onChange={(e) => setUser({ ...user, email: e.target.value })}
         />
+
+        {/* Password Input */}
         <input
           id="password"
           type="password"
           placeholder="Password"
-          className="mb-6 p-2 border text-black border-gray-300 rounded"
+          className="mb-6 p-4 text-lg border border-gray-600 rounded-lg bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500"
           value={user.password}
           onChange={(e) => setUser({ ...user, password: e.target.value })}
         />
+
+        {/* Login Button */}
         <button
           type="submit"
-          className="p-2 bg-white text-black font-semibold rounded hover:bg-gray-600 hover:text-white"
-          disabled={buttonDisabled} // Corrected to disable when necessary
+          className={`p-4 text-lg font-semibold rounded-lg bg-pink-500 text-white transition duration-300 ease-in-out transform hover:scale-105 hover:bg-pink-600 ${
+            buttonDisabled && "opacity-50 cursor-not-allowed"
+          }`}
+          disabled={buttonDisabled}
         >
           {buttonDisabled ? "Not Ready" : "Login"}
         </button>
-        <Link href="/register" className="mt-5">
-          Are you a new user?
-        </Link>
-        <Link href="/forgotpassword" className="mt-5">
-          Forgot password?
-        </Link>
+
+        {/* Links */}
+        <div className="flex justify-between mt-5 text-sm">
+          <Link
+            href="/register"
+            className="text-pink-400 hover:text-pink-500 transition duration-300"
+          >
+            Are you a new user?
+          </Link>
+          <Link
+            href="/forgotpassword"
+            className="text-pink-400 hover:text-pink-500 transition duration-300"
+          >
+            Forgot password?
+          </Link>
+        </div>
         <Toaster />
       </form>
     </div>

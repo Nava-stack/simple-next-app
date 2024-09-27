@@ -15,7 +15,7 @@ export default function RegisterPage() {
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
-  const toastSuccessHandler = () => toast.success("Register success");
+  const toastSuccessHandler = () => toast.success("Register successful");
   const toastFailHandler = () => toast.error("Register failed");
 
   const handleRegister = async () => {
@@ -30,7 +30,6 @@ export default function RegisterPage() {
       console.log("Register failed", error.message, error.response.data);
       toastFailHandler();
     } finally {
-      console.log("Register complete");
       setLoading(false);
     }
   };
@@ -48,43 +47,60 @@ export default function RegisterPage() {
   }, [user]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
-      <form className="flex flex-col w-80 p-6 border rounded-md shadow-md text-center">
-        <h1 className="mb-6 text-2xl font-bold">
-          {loading ? "Processing" : "Register"}
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white px-4">
+      {/* Form Container */}
+      <form className="flex flex-col w-full max-w-md p-8 bg-gray-900 border border-gray-700 rounded-lg shadow-lg">
+        <h1 className="mb-6 text-3xl text-center font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-500">
+          {loading ? "Processing..." : "Register"}
         </h1>
+
+        {/* Email Input */}
         <input
           id="email"
           type="email"
           placeholder="Email"
-          className="mb-4 p-2 border text-black border-gray-300 rounded"
+          className="mb-4 p-4 text-lg border border-gray-600 rounded-lg bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500"
           value={user.email}
           onChange={(e) => setUser({ ...user, email: e.target.value })}
         />
+
+        {/* Username Input */}
         <input
           id="username"
           type="text"
           placeholder="Username"
-          className="mb-4 p-2 border text-black border-gray-300 rounded"
+          className="mb-4 p-4 text-lg border border-gray-600 rounded-lg bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500"
           value={user.username}
           onChange={(e) => setUser({ ...user, username: e.target.value })}
         />
+
+        {/* Password Input */}
         <input
           id="password"
           type="password"
           placeholder="Password"
-          className="mb-6 p-2 border text-black border-gray-300 rounded"
+          className="mb-6 p-4 text-lg border border-gray-600 rounded-lg bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500"
           value={user.password}
           onChange={(e) => setUser({ ...user, password: e.target.value })}
         />
+
+        {/* Register Button */}
         <button
           type="button"
-          className="p-2 bg-white text-black font-semibold rounded hover:bg-gray-600 hover:text-white"
           onClick={handleRegister}
+          className={`p-4 text-lg font-semibold rounded-lg bg-pink-500 text-white transition duration-300 ease-in-out transform hover:scale-105 hover:bg-pink-600 ${
+            buttonDisabled ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+          disabled={buttonDisabled}
         >
-          {buttonDisabled ? "Can't" : "Sign up"}
+          {buttonDisabled ? "Can't Sign Up" : "Sign up"}
         </button>
-        <Link href="/login" className="mt-5">
+
+        {/* Links */}
+        <Link
+          href="/login"
+          className="mt-5 text-pink-400 hover:text-pink-500 transition duration-300 text-center"
+        >
           Already have an account?
         </Link>
         <Toaster />
