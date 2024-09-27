@@ -10,15 +10,17 @@ export async function POST(request: NextRequest) {
     const reqBody = await request.json();
     const { token, password } = reqBody;
 
-    // Hash the password
-    const saltedPassword = await bcryptjs
-      .genSalt(10)
-      .then((salt) => bcryptjs.hash(password, salt));
+    //* Hash the password
+    const salt = await bcryptjs.genSalt(10);
+    const hashedPassword = await bcryptjs.hash(password, salt);
 
     // Update the user's password
     const updatedUser = await User.findOneAndUpdate(
-      { resetToken: token, resetTokenExpiry: { $gt: Date.now() } },
-      { password: saltedPassword, resetToken: null, resetTokenExpiry: null },
+      {
+        forgotPasswordToken: token,
+        forgotPasswordTokenExpiry: { $gt: Date.now() },
+      },
+      { password: hashedPassword, resetToken: null, resetTokenExpiry: null },
       { new: true }
     );
 
